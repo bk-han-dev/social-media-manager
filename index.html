@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>X Manager Bot — Class Setup</title>
+<meta name="description" content="Set up your free-to-trial X Manager bot, get a license ID, and grow on X with BK Han.">
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#0d1117;--card:#161b22;--line:#2b3340;--text:#e6edf3;--muted:#9aa7b4;--acc:#3fb950;--acc2:#58a6ff;--warn:#d29922}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text)}
+main{max-width:680px;margin:0 auto;padding:24px 18px 64px}
+h1{font-size:1.6rem;margin:.2em 0}
+h2{font-size:1.25rem;margin:0 0 .4em}
+.brand{color:var(--muted);font-size:.9rem;letter-spacing:.04em;text-transform:uppercase}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin:14px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input{width:100%;padding:12px;border-radius:8px;border:1px solid var(--line);background:#0b0f14;color:var(--text);font-size:16px}
+button,.btn{display:inline-block;border:0;border-radius:8px;padding:12px 18px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;margin:8px 8px 0 0}
+.primary{background:var(--acc);color:#04130a}
+.secondary{background:transparent;color:var(--acc2);border:1px solid var(--line)}
+.muted{color:var(--muted);font-size:.92rem}
+.lic{font:700 1.8rem/1.2 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.08em;color:var(--acc)}
+pre{white-space:pre-wrap;word-break:break-word;background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:12px;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:8px 0}
+.consent{border-left:3px solid var(--warn);padding:8px 12px;background:#1c1a12;border-radius:6px;font-size:.92rem}
+.ok{border-left:3px solid var(--acc);padding:10px 12px;background:#10241a;border-radius:6px}
+.err{color:#ff7b72;font-size:.92rem;min-height:1.2em}
+ol li,ul li{margin:6px 0}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:999px;background:#1f2a37;color:var(--acc2);margin-right:6px}
+.hidden{display:none}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.back{background:none;border:0;color:var(--muted);font-size:.9rem;padding:8px 4px;text-decoration:underline}
+.dots{display:flex;gap:8px;justify-content:center;margin:16px 0}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line);display:block}
+.dots i.on{background:var(--acc)}
+.dots i.cur{outline:2px solid var(--acc);outline-offset:2px}
+.motto{color:var(--acc);font-weight:700}
+footer{color:var(--muted);font-size:.85rem;margin-top:32px}
+a{color:var(--acc2)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0b0f14;padding:1px 5px;border-radius:4px}
+.placeholder{border:1px dashed var(--line);border-radius:8px;padding:14px 16px;background:#12161c;color:var(--muted);margin:12px 0}
+.placeholder b{color:var(--text)}
+.check{list-style:none;padding:0;margin:12px 0}
+.check li{display:flex;gap:10px;align-items:flex-start;margin:10px 0;padding:10px 12px;background:#0b0f14;border:1px solid var(--line);border-radius:8px}
+.check input{width:auto;margin-top:3px;flex-shrink:0}
+.check label{font-weight:400;margin:0}
+.prompt{display:flex;gap:8px;align-items:center;justify-content:space-between;background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:8px 0}
+.prompt span{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9rem}
+.prompt button{margin:0;padding:6px 12px;font-size:.85rem}
+</style>
+<body>
+<main>
+  <div class="brand">AI Hustle Generation · BK Han</div>
+  <h1>X Manager Bot — Class Setup</h1>
+  <p class="muted">Your free-to-trial social bot for X: topic ideas, ready posts with an image, a posting schedule, trend research and leads. Get a license ID and set it up in 8 steps.</p>
+  <div class="dots" id="progress"></div>
+
+  <!-- S1 -->
+  <section id="s1">
+    <div class="card" id="signupCard">
+      <span class="tag">Step 1 of 8</span>
+      <h2>Sign up and get your license ID</h2>
+      <p class="muted">Use the email you'll send all your bot emails from. Your first email to BK's inbox registers your license ID to that address.</p>
+      <form id="signupForm" action="javascript:void(0)" method="dialog" novalidate>
+        <label for="name">Full name</label>
+        <input id="name" autocomplete="name" required>
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email" required>
+        <div class="err" id="signupErr"></div>
+        <button class="primary" type="submit">Get my license ID</button>
+      </form>
+    </div>
+    <div class="card hidden" id="licenseCard">
+      <span class="tag">Step 1 of 8</span>
+      <h2>Your license ID</h2>
+      <div class="lic" id="licShow">MLH-XXXX</div>
+      <p class="muted">Write it down. It goes in the subject of every email. It's saved in this browser too. <span id="licWho"></span></p>
+      <button class="secondary" type="button" data-copy="lic">Copy license ID</button>
+    </div>
+    <div class="card hidden" id="cardStep">
+      <h2>Save a card (no charge today)</h2>
+      <p>X Manager is free to trial. Card saving (for Income Radar later) is coming soon — skip for now.</p>
+      <div class="consent">
+        <b>When card saving is live:</b> Stripe saves your card securely. We never see your card number.
+        <b>Nothing is charged today.</b> Only if you upgrade to Income Radar, after your first paying customer: a <b>S$10 one-time setup fee</b>, about <b>S$5–10/month API fee</b>, and a <b>20% success fee</b> on your first closed deal (billed separately).
+        Cancel anytime by emailing <a id="cancelMail" href="#">BK</a>.
+      </div>
+      <div class="placeholder" id="stripePlaceholder">
+        <b>Card saving (Stripe) — coming soon.</b><br>
+        Skip for now; nothing is charged tonight.
+      </div>
+      <button class="secondary" type="button" id="skipCardBtn">Skip for now</button>
+      <p class="muted">Nothing is charged tonight. You can continue with Next after skipping.</p>
+    </div>
+    <div class="card hidden" id="cardDone">
+      <div class="ok" id="cardDoneMsg">Skipped for now. You can save a card later; nothing is needed tonight.</div>
+    </div>
+  </section>
+
+  <!-- S2 -->
+  <section id="s2" class="hidden">
+    <div class="card">
+      <span class="tag">Step 2 of 8</span>
+      <h2>Create your bot and connect X</h2>
+      <p>Open the Grok app and create a new Grok Bot. Name it <b>My X Manager</b>.</p>
+      <p>In the bot's connections, connect <b>X</b> so it can read and research public posts. To let it post for you, also connect a posting tool such as <b>Buffer</b> linked to your X account.</p>
+      <div class="consent">On its own, the bot's X connection reads public X but <b>can't post</b>. Posting needs a posting tool (like Buffer), or your own X API developer keys (advanced; X API access may be paid). No posting tool? The bot gives you each ready post and image to copy and paste.</div>
+      <p class="muted">You're done with this step when you have a new, empty bot with X connected (and Buffer, if you want automatic posting).</p>
+    </div>
+  </section>
+
+  <!-- S3 -->
+  <section id="s3" class="hidden">
+    <div class="card">
+      <span class="tag">Step 3 of 8</span>
+      <h2>Paste the X Manager instructions</h2>
+      <ol>
+        <li>Copy the instructions (button below) and paste them as your bot's instructions.</li>
+        <li>Say “hi” to your bot. It asks you a few setup questions, one at a time.</li>
+        <li>When it asks, give it your license ID (<code class="licInline">MLH-XXXX</code>) and your X handle.</li>
+      </ol>
+      <button class="primary" type="button" id="copyInstr">Copy X Manager instructions</button>
+      <div class="muted" id="copyInstrMsg"></div>
+      <textarea id="instrText" class="hidden" aria-hidden="true"></textarea>
+    </div>
+  </section>
+
+  <!-- S4: SETUP email -->
+  <section id="s4" class="hidden">
+    <div class="card">
+      <span class="tag">Step 4 of 8</span>
+      <h2>Send the SETUP email</h2>
+      <p>Your X Manager drafts this for you. Check it, then send it from <b class="emailInline">your signup email</b>.</p>
+      <pre id="setupTpl"></pre>
+      <a class="btn primary" id="setupMailto" href="#">Open in my email app</a>
+      <button class="secondary" type="button" data-copy="setup">Copy SETUP email</button>
+      <div class="ok" style="margin-top:14px"><b>BK's reply arrives within minutes</b> with your next steps. No reply? Check the license ID, the subject line, and that you sent it from your signup email.</div>
+    </div>
+  </section>
+
+  <!-- S5: Explainer -->
+  <section id="s5" class="hidden">
+    <div class="card">
+      <span class="tag">Step 5 of 8</span>
+      <h2>What your X Manager does</h2>
+      <ul>
+        <li><b>Topic ideas</b> for your niche, plus a daily post idea.</li>
+        <li><b>Simple posts with hashtags</b>: strong hook, short lines, 1–2 hashtags, under 280 characters. Short threads too.</li>
+        <li><b>One image per post</b>, generated to match the topic.</li>
+        <li><b>Posting schedule</b>: daily, twice a day, or three times a day. The bot prepares each post and image on time and posts through your posting tool (like Buffer). You give one standing “yes” for scheduled posts and can pause anytime. No posting tool? It sends you the ready post and image to copy and paste.</li>
+        <li><b>Trend research</b> on what's being talked about in your niche on X, and <b>reply ideas</b>.</li>
+        <li><b>Leads</b> from public X posts and profiles, scored out of 20.</li>
+      </ul>
+      <p class="muted">It never posts, replies, likes, follows or DMs without your clear yes, and it follows X's automation rules: no spam, no mass replies.</p>
+      <h2 style="margin-top:18px">Try these prompts</h2>
+      <div id="prompts"></div>
+    </div>
+  </section>
+
+  <!-- S6: Optional LEADS -->
+  <section id="s6" class="hidden">
+    <div class="card">
+      <span class="tag">Step 6 of 8 · optional</span>
+      <h2>Send your X leads (optional)</h2>
+      <p>If your X Manager found leads, send them to BK's inbox in the LEADS format, from your signup email. Skip this if you don't have leads yet.</p>
+      <pre id="leadsTpl"></pre>
+      <a class="btn primary" id="leadsMailto" href="#">Open in my email app</a>
+      <button class="secondary" type="button" data-copy="leads">Copy LEADS email</button>
+      <p class="muted">Attach or paste the CSV. Public business information only.</p>
+      <p>Want more leads from Google Maps, directories and more? See Income Radar:</p>
+      <a class="btn secondary" href="https://bk-han-dev.github.io/income-radar-manager/" target="_blank" rel="noopener">Open Income Radar class site</a>
+    </div>
+  </section>
+
+  <!-- S7: Pricing -->
+  <section id="s7" class="hidden">
+    <div class="card">
+      <span class="tag">Step 7 of 8</span>
+      <h2>Pricing</h2>
+      <ul>
+        <li><b>X Manager:</b> free to trial.</li>
+        <li><b>Email Manager:</b> free.</li>
+        <li><b>Article Manager:</b> free to trial.</li>
+        <li><b>Income Radar:</b> no subscription fee. You pay only once you get a paying customer:
+          <ul>
+            <li>S$10 one-time setup</li>
+            <li>about S$5–10/month for API usage</li>
+            <li>20% success fee on your first closed deal</li>
+          </ul>
+        </li>
+      </ul>
+      <p class="muted">A posting tool like Buffer, or X API access, may have its own plan and costs from that provider.</p>
+      <div class="consent">Nothing is charged today. Income Radar charges start only after you land your first paying customer and confirm it with BK. Cancel anytime by emailing <a class="cancelInline" href="#"></a>.</div>
+    </div>
+  </section>
+
+  <!-- S8 -->
+  <section id="s8" class="hidden">
+    <div class="card">
+      <span class="tag">Step 8 of 8</span>
+      <h2>What's next</h2>
+      <ul>
+        <li><a href="https://bk-han-dev.github.io/email-manager/" target="_blank" rel="noopener">Email Manager</a>: free email and calendar bot.</li>
+        <li><a href="https://bk-han-dev.github.io/income-radar-manager/" target="_blank" rel="noopener">Income Radar</a>: find local businesses that need a website (paid).</li>
+        <li><a href="https://bk-han-dev.github.io/article-manager/" target="_blank" rel="noopener">Article Manager</a>: research and write articles (free to trial).</li>
+        <li><b>Realtor Bot Team</b> tiers for property agents. Your X Manager can tell you more.</li>
+        <li>A <b>Website Design bot</b> is coming later.</li>
+      </ul>
+      <a class="btn primary" href="https://www.linkedin.com/groups/42843177/" target="_blank" rel="noopener">Join the Grok Bot Community on LinkedIn</a>
+      <a class="btn secondary" href="https://aihustlegeneration.com" target="_blank" rel="noopener">aihustlegeneration.com</a>
+    </div>
+  </section>
+
+  <div class="nav">
+    <button class="back" type="button" id="backBtn">‹ Back</button>
+    <button class="primary" type="button" id="nextBtn">Next</button>
+  </div>
+  <div class="err" id="navErr" style="text-align:right"></div>
+
+  <footer>
+    <p class="motto">Drink Coffee. Eat Pancake. Automate.</p>
+    <p>© 2026 AI Hustle Generation. All rights reserved to Coach BK Han. No copying or reselling without permission. Designed and created by BK Han.</p>
+    <p class="muted">No income or follower growth is promised. Results depend on your own work.</p>
+    <p><a href="#" id="resetLink" class="muted">Start over on this device</a></p>
+  </footer>
+</main>
+<script>
+(function () {
+  var INBOX_ADDRESS = "aihustle-leads@mail.grokbot.com";
+  var CANCEL_EMAIL  = "bk@aihustlegeneration.com";
+  var STORE = "xManagerClass.v1";
+
+  var X_MANAGER_INSTRUCTIONS = `You are the student's X Manager, a free-to-trial social media bot created by BK Han (AI Hustle Generation). You help the student grow on X (Twitter) and find leads there.
+
+## Style
+Plain, warm, short messages. Ask ONE question at a time and wait for the answer. Never invent stats, follower numbers or results.
+
+## Setup questions (one at a time)
+1. Your full name?
+2. Your license ID from the class signup page (format MLH-XXXX)? If it doesn't match, ask them to check the signup page.
+3. Which email did you sign up with?
+4. What do you offer (product or service)?
+5. Who is your audience?
+6. Your niche?
+7. Your area (for example Singapore)?
+8. Your tone (friendly, expert, funny, bold)?
+9. Posting schedule: once a day, twice a day, or three times a day?
+10. Your X handle?
+Then repeat everything back and ask "Is this correct?"
+
+## Your jobs
+- Topic ideas: suggest 5 topic ideas for their niche whenever asked, and one post idea each day.
+- Posts: write simple posts with a strong hook, short lines, one call to action and 1-2 hashtags, under 280 characters. Short threads (3-7 posts) on request, each post under 280 characters.
+- Image: generate one image related to each post's topic.
+- Trends: research what is being discussed in their niche on X using public posts, and summarise it with links.
+- Replies: suggest reply ideas to relevant public posts. The student decides what to post.
+- Leads: find people and businesses in their niche and area from public X posts and profiles. Score each out of 20 (fit, need, activity, contactability) and save them as a list.
+
+## Posting (be honest)
+Your built-in X connection reads public X but cannot post. To post, the student needs a posting connection:
+- a scheduling tool such as Buffer connected to their X account, or
+- their own X API developer keys (advanced; X API access may be paid), or
+- copy and paste by hand.
+Never post, reply, like, follow or DM without the student's explicit yes. Follow X's automation rules: no spam, no mass replies, no mass follows.
+
+## Posting schedule
+Set up a routine (scheduled task) at the times the student chose (daily, twice or three times a day). Each time, prepare the post and its image. If a posting tool is connected and the student has given a one-time standing yes for scheduled posts, post through it and confirm. Otherwise, send the ready post and image so they can copy and paste. They can say "pause" anytime; stop at once.
+
+## SETUP email
+Draft this, show it, and send only on yes (or let them send it by hand from their signup email):
+To: aihustle-leads@mail.grokbot.com
+Subject: SETUP | [MLH-XXXX] | [Full Name]
+Body:
+License: [MLH-XXXX]
+Name: [Full Name]
+Niche: [niche]
+Area: [area]
+Channels: X
+BK's reply arrives within minutes.
+
+## LEADS email (optional)
+Subject: LEADS | [MLH-XXXX] | [niche] [area] | [count]
+CSV columns: business_name,category,area,phone,website,source,score,notes (source = X).
+
+## Also mention
+Email Manager is free. Income Radar is paid (S$10 one-time setup, about S$5-10/month API, 20% success fee on the first closed deal, only after the first customer). BK also offers Realtor Bot Team tiers for property agents.
+
+## Rules
+Public information only. Never promise income or followers.
+`;
+
+  var PROMPTS = [
+    "Give me 5 topic ideas for my niche",
+    "Give me today's post",
+    "Write a simple post with hashtags and one image",
+    "Turn this idea into a 5-post thread",
+    "What's trending in [niche]?",
+    "Set my posting schedule to twice a day",
+    "Find 10 leads in [niche] [area]"
+  ];
+
+  function load() { try { return JSON.parse(localStorage.getItem(STORE)) || {}; } catch (e) { return {}; } }
+  function save(s) { try { localStorage.setItem(STORE, JSON.stringify(s)); } catch (e) {} }
+  var st = load();
+  var $ = function (id) { return document.getElementById(id); };
+
+  var ALPHA = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  function newLicense() {
+    var a = new Uint8Array(4), out = "MLH-";
+    if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(a);
+    else for (var i = 0; i < 4; i++) a[i] = Math.floor(Math.random() * 256);
+    for (var j = 0; j < 4; j++) out += ALPHA[a[j] % ALPHA.length];
+    return out;
+  }
+
+  var TOTAL = 8;
+  for (var d = 0; d < TOTAL; d++) $("progress").appendChild(document.createElement("i"));
+  function show(n) {
+    n = Math.max(1, Math.min(TOTAL, n));
+    st.screen = n; save(st);
+    for (var i = 1; i <= TOTAL; i++) $("s" + i).classList.toggle("hidden", i !== n);
+    var dots = $("progress").children;
+    for (var k = 0; k < dots.length; k++) { dots[k].classList.toggle("on", k < n); dots[k].classList.toggle("cur", k === n - 1); }
+    $("backBtn").style.visibility = n > 1 ? "visible" : "hidden";
+    $("nextBtn").style.display = n < TOTAL ? "" : "none";
+    $("navErr").textContent = "";
+    window.scrollTo(0, 0);
+  }
+
+  function setupSubject() { return "SETUP | " + st.license + " | " + st.name; }
+  function setupBody() {
+    return "License: " + st.license + "\nName: " + st.name + "\nNiche: [your niche, e.g. bakeries]\nArea: [your area, e.g. Tampines, Singapore]\nChannels: X";
+  }
+  function setupText() { return "To: " + INBOX_ADDRESS + "\nSubject: " + setupSubject() + "\n\n" + setupBody(); }
+  function leadsSubject() { return "LEADS | " + st.license + " | [niche] [area] | [count]"; }
+  function leadsBody() {
+    return "License: " + st.license + "\nName: " + st.name + "\n\nbusiness_name,category,area,phone,website,source,score,notes\n[Example Cafe],[cafe],[Tampines],[phone if public],[website],X,[15],[posted about needing a website]";
+  }
+  function leadsText() { return "To: " + INBOX_ADDRESS + "\nSubject: " + leadsSubject() + "\n\n" + leadsBody(); }
+
+  function render() {
+    var has = !!st.license;
+    $("signupCard").classList.toggle("hidden", has);
+    $("licenseCard").classList.toggle("hidden", !has);
+    $("cardStep").classList.toggle("hidden", !has || !!st.cardDecided);
+    $("cardDone").classList.toggle("hidden", !has || !st.cardDecided);
+    if (!has) return;
+    $("licShow").textContent = st.license;
+    $("licWho").textContent = "Registered to: " + st.email;
+    document.querySelectorAll(".licInline").forEach(function (e) { e.textContent = st.license; });
+    document.querySelectorAll(".emailInline").forEach(function (e) { e.textContent = st.email; });
+    document.querySelectorAll(".cancelInline").forEach(function (e) {
+      e.textContent = CANCEL_EMAIL;
+      e.href = "mailto:" + CANCEL_EMAIL + "?subject=" + encodeURIComponent("CANCEL | X Manager | " + st.license);
+    });
+    $("setupTpl").textContent = setupText();
+    $("setupMailto").href = "mailto:" + INBOX_ADDRESS + "?subject=" + encodeURIComponent(setupSubject()) + "&body=" + encodeURIComponent(setupBody());
+    $("leadsTpl").textContent = leadsText();
+    $("leadsMailto").href = "mailto:" + INBOX_ADDRESS + "?subject=" + encodeURIComponent(leadsSubject()) + "&body=" + encodeURIComponent(leadsBody());
+  }
+
+  function copy(text, btn) {
+    var done = function () { if (btn) { var t = btn.textContent; btn.textContent = "Copied ✔"; setTimeout(function () { btn.textContent = t; }, 1500); } };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+    } else fallbackCopy(text, done);
+  }
+  function fallbackCopy(text, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.left = "-9999px";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); done(); } catch (e) { prompt("Copy this:", text); }
+    document.body.removeChild(ta);
+  }
+
+  $("cancelMail").href = "mailto:" + CANCEL_EMAIL + "?subject=" + encodeURIComponent("CANCEL | X Manager card");
+  $("cancelMail").textContent = CANCEL_EMAIL;
+  $("instrText").value = X_MANAGER_INSTRUCTIONS;
+
+  PROMPTS.forEach(function (p) {
+    var row = document.createElement("div"); row.className = "prompt";
+    var s = document.createElement("span"); s.textContent = p;
+    var b = document.createElement("button"); b.type = "button"; b.className = "secondary"; b.textContent = "Copy";
+    b.addEventListener("click", function () { copy(p, b); });
+    row.appendChild(s); row.appendChild(b); $("prompts").appendChild(row);
+  });
+
+  $("signupForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = $("name").value.trim(), email = $("email").value.trim();
+    if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      $("signupErr").textContent = "Please enter your name and a valid email."; return;
+    }
+    st.name = name; st.email = email; st.license = st.license || newLicense();
+    save(st); render();
+  });
+
+  $("skipCardBtn").addEventListener("click", function () {
+    st.cardDecided = true; save(st); render();
+  });
+
+  document.addEventListener("click", function (e) {
+    var c = e.target.getAttribute && e.target.getAttribute("data-copy");
+    if (c === "lic") copy(st.license, e.target);
+    if (c === "setup") copy(setupText(), e.target);
+    if (c === "leads") copy(leadsText(), e.target);
+  });
+
+  $("copyInstr").addEventListener("click", function () { copy(X_MANAGER_INSTRUCTIONS, this); });
+
+  $("nextBtn").addEventListener("click", function () {
+    if (st.screen === 1 && !st.license) { $("navErr").textContent = "Enter your name and email first."; return; }
+    show(st.screen + 1);
+  });
+  $("backBtn").addEventListener("click", function () { show(st.screen - 1); });
+
+  $("resetLink").addEventListener("click", function (e) {
+    e.preventDefault();
+    if (confirm("Clear your saved name, email and license ID from this browser? Write your license ID down first.")) {
+      localStorage.removeItem(STORE);
+      location.href = location.href.split("?")[0].split("#")[0];
+    }
+  });
+
+  render();
+  show(st.screen && st.license ? st.screen : 1);
+})();
+</script>
+</body>
+</html>
