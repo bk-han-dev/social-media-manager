@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>X Manager Bot — Class Setup</title>
-<meta name="description" content="Set up your free-to-trial X Manager bot, get a license ID, and grow on X with BK Han.">
+<title>Social Media Manager Bot — Class Setup</title>
+<meta name="description" content="Set up your Social Media Manager bot that posts through Buffer to X, Instagram and LinkedIn, with BK Han.">
 <meta name="robots" content="noindex">
 <style>
 :root{--bg:#0d1117;--card:#161b22;--line:#2b3340;--text:#e6edf3;--muted:#9aa7b4;--acc:#3fb950;--acc2:#58a6ff;--warn:#d29922}
@@ -52,8 +52,8 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background
 <body>
 <main>
   <div class="brand">AI Hustle Generation · BK Han</div>
-  <h1>X Manager Bot — Class Setup</h1>
-  <p class="muted">Your free-to-trial social bot for X: topic ideas, ready posts with an image, a posting schedule, trend research and leads. Get a license ID and set it up in 8 steps.</p>
+  <h1>Social Media Manager Bot — Class Setup</h1>
+  <p class="muted">Your social media bot (S$10 setup): topic ideas, ready posts with hashtags and an image, scheduled through Buffer to X, Instagram and LinkedIn — only after you approve. Get a license ID and set it up in 8 steps.</p>
   <div class="dots" id="progress"></div>
 
   <!-- S1 -->
@@ -78,23 +78,19 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background
       <p class="muted">Write it down. It goes in the subject of every email. It's saved in this browser too. <span id="licWho"></span></p>
       <button class="secondary" type="button" data-copy="lic">Copy license ID</button>
     </div>
+    <!-- NOTE: This payment gate is client-side and SOFT (anyone could bypass it with ?paid=1 or the browser console).
+       The real check is BK's Stripe dashboard: match client_reference_id (license ID) / email to a paid S$10 setup. -->
     <div class="card hidden" id="cardStep">
-      <h2>Save a card (no charge today)</h2>
-      <p>X Manager is free to trial. Card saving (for Income Radar later) is coming soon — skip for now.</p>
-      <div class="consent">
-        <b>When card saving is live:</b> Stripe saves your card securely. We never see your card number.
-        <b>Nothing is charged today.</b> Only if you upgrade to Income Radar, after your first paying customer: a <b>S$10 one-time setup fee</b>, about <b>S$5–10/month API fee</b>, and a <b>20% success fee</b> on your first closed deal (billed separately).
-        Cancel anytime by emailing <a id="cancelMail" href="#">BK</a>.
-      </div>
-      <div class="placeholder" id="stripePlaceholder">
-        <b>Card saving (Stripe) — coming soon.</b><br>
-        Skip for now; nothing is charged tonight.
-      </div>
-      <button class="secondary" type="button" id="skipCardBtn">Skip for now</button>
-      <p class="muted">Nothing is charged tonight. You can continue with Next after skipping.</p>
+      <h2>Pay your S$10 setup</h2>
+      <div class="consent">S$10 setup is charged now. The monthly API fee (about S$5-10) starts when you connect Buffer. Cancel anytime: <a id="cancelMail" href="#">bk@aihustlegeneration.com</a>.</div>
+      <p class="muted">Stripe handles your card securely. We never see your card number.</p>
+      <button class="primary" type="button" id="payBtn">Pay S$10 setup (Stripe)</button>
+      <div class="placeholder hidden" id="payPending"><b>Payment opens soon — ask Coach BK.</b></div>
+      <p class="muted">After paying, Stripe brings you back here and Next unlocks. Use this same browser.</p>
+      <p style="text-align:right;margin:4px 0 0"><a href="#" id="instructorUnlock" class="muted" style="font-size:.75rem;opacity:.6">Instructor unlock</a></p>
     </div>
     <div class="card hidden" id="cardDone">
-      <div class="ok" id="cardDoneMsg">Skipped for now. You can save a card later; nothing is needed tonight.</div>
+      <div class="ok" id="cardDoneMsg">Setup paid. Thank you! Tap Next to continue.</div>
     </div>
   </section>
 
@@ -102,11 +98,11 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background
   <section id="s2" class="hidden">
     <div class="card">
       <span class="tag">Step 2 of 8</span>
-      <h2>Create your bot and connect X</h2>
-      <p>Open the Grok app and create a new Grok Bot. Name it <b>My X Manager</b>.</p>
-      <p>In the bot's connections, connect <b>X</b> so it can read and research public posts. To let it post for you, also connect a posting tool such as <b>Buffer</b> linked to your X account.</p>
-      <div class="consent">On its own, the bot's X connection reads public X but <b>can't post</b>. Posting needs a posting tool (like Buffer), or your own X API developer keys (advanced; X API access may be paid). No posting tool? The bot gives you each ready post and image to copy and paste.</div>
-      <p class="muted">You're done with this step when you have a new, empty bot with X connected (and Buffer, if you want automatic posting).</p>
+      <h2>Create your bot and connect Buffer</h2>
+      <p>Open the Grok app and create a new Grok Bot. Name it <b>My Social Media Manager</b>.</p>
+      <p>In the bot's connections, connect <b>Buffer</b>. Inside Buffer, link the channels you want to post to: <b>X/Twitter</b>, <b>Instagram</b> and/or <b>LinkedIn</b>.</p>
+      <div class="consent">Buffer is how your bot schedules posts. No Buffer yet? The bot still drafts every post and image for you to copy and paste. Buffer has its own free and paid plans.</div>
+      <p class="muted">You're done with this step when you have a new, empty bot with Buffer connected and your channels linked in Buffer.</p>
     </div>
   </section>
 
@@ -114,13 +110,13 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background
   <section id="s3" class="hidden">
     <div class="card">
       <span class="tag">Step 3 of 8</span>
-      <h2>Paste the X Manager instructions</h2>
+      <h2>Paste the Social Media Manager instructions</h2>
       <ol>
         <li>Copy the instructions (button below) and paste them as your bot's instructions.</li>
         <li>Say “hi” to your bot. It asks you a few setup questions, one at a time.</li>
-        <li>When it asks, give it your license ID (<code class="licInline">MLH-XXXX</code>) and your X handle.</li>
+        <li>When it asks, give it your license ID (<code class="licInline">MLH-XXXX</code>) and the platforms you use.</li>
       </ol>
-      <button class="primary" type="button" id="copyInstr">Copy X Manager instructions</button>
+      <button class="primary" type="button" id="copyInstr">Copy Social Media Manager instructions</button>
       <div class="muted" id="copyInstrMsg"></div>
       <textarea id="instrText" class="hidden" aria-hidden="true"></textarea>
     </div>
@@ -131,7 +127,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background
     <div class="card">
       <span class="tag">Step 4 of 8</span>
       <h2>Send the SETUP email</h2>
-      <p>Your X Manager drafts this for you. Check it, then send it from <b class="emailInline">your signup email</b>.</p>
+      <p>Your Social Media Manager drafts this for you. Check it, then send it from <b class="emailInline">your signup email</b>.</p>
       <pre id="setupTpl"></pre>
       <a class="btn primary" id="setupMailto" href="#">Open in my email app</a>
       <button class="secondary" type="button" data-copy="setup">Copy SETUP email</button>
@@ -143,16 +139,16 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background
   <section id="s5" class="hidden">
     <div class="card">
       <span class="tag">Step 5 of 8</span>
-      <h2>What your X Manager does</h2>
+      <h2>What your Social Media Manager does</h2>
       <ul>
-        <li><b>Topic ideas</b> for your niche, plus a daily post idea.</li>
-        <li><b>Simple posts with hashtags</b>: strong hook, short lines, 1–2 hashtags, under 280 characters. Short threads too.</li>
-        <li><b>One image per post</b>, generated to match the topic.</li>
-        <li><b>Posting schedule</b>: daily, twice a day, or three times a day. The bot prepares each post and image on time and posts through your posting tool (like Buffer). You give one standing “yes” for scheduled posts and can pause anytime. No posting tool? It sends you the ready post and image to copy and paste.</li>
-        <li><b>Trend research</b> on what's being talked about in your niche on X, and <b>reply ideas</b>.</li>
-        <li><b>Leads</b> from public X posts and profiles, scored out of 20.</li>
+        <li><b>Topic ideas</b> for your niche.</li>
+        <li><b>A simple post with hashtags for each platform</b>: X under 280 characters, an Instagram caption with an image, and a slightly longer LinkedIn post.</li>
+        <li><b>One matching image per post</b>, generated for the topic.</li>
+        <li><b>Scheduling through Buffer</b> to your X, Instagram and LinkedIn channels — only after you approve each post (or a batch).</li>
+        <li><b>A routine</b> at your chosen frequency (daily, twice or three times a day) that prepares posts and asks for your approval.</li>
+        <li><b>Leads</b> (optional) from public posts and profiles, scored out of 20.</li>
       </ul>
-      <p class="muted">It never posts, replies, likes, follows or DMs without your clear yes, and it follows X's automation rules: no spam, no mass replies.</p>
+      <p class="muted">It never posts or schedules without your approval, and it follows each platform's rules: no spam, no mass posting.</p>
       <h2 style="margin-top:18px">Try these prompts</h2>
       <div id="prompts"></div>
     </div>
@@ -162,8 +158,8 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background
   <section id="s6" class="hidden">
     <div class="card">
       <span class="tag">Step 6 of 8 · optional</span>
-      <h2>Send your X leads (optional)</h2>
-      <p>If your X Manager found leads, send them to BK's inbox in the LEADS format, from your signup email. Skip this if you don't have leads yet.</p>
+      <h2>Send your leads (optional)</h2>
+      <p>If your Social Media Manager found leads, send them to BK's inbox in the LEADS format, from your signup email. Skip this if you don't have leads yet.</p>
       <pre id="leadsTpl"></pre>
       <a class="btn primary" id="leadsMailto" href="#">Open in my email app</a>
       <button class="secondary" type="button" data-copy="leads">Copy LEADS email</button>
@@ -179,7 +175,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background
       <span class="tag">Step 7 of 8</span>
       <h2>Pricing</h2>
       <ul>
-        <li><b>X Manager:</b> free to trial.</li>
+        <li><b>Social Media Manager:</b> S$10 one-time setup (paid at signup) + about S$5–10/month API fee, starting when you connect Buffer.</li>
         <li><b>Email Manager:</b> free.</li>
         <li><b>Article Manager:</b> free to trial.</li>
         <li><b>Income Radar:</b> no subscription fee. You pay only once you get a paying customer:
@@ -190,8 +186,8 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background
           </ul>
         </li>
       </ul>
-      <p class="muted">A posting tool like Buffer, or X API access, may have its own plan and costs from that provider.</p>
-      <div class="consent">Nothing is charged today. Income Radar charges start only after you land your first paying customer and confirm it with BK. Cancel anytime by emailing <a class="cancelInline" href="#"></a>.</div>
+      <p class="muted">Buffer has its own free and paid plans, set by Buffer.</p>
+      <div class="consent">Social Media Manager: S$10 setup at signup; the monthly API fee starts when you connect Buffer. Income Radar charges start only after you land your first paying customer and confirm it with BK. Cancel anytime by emailing <a class="cancelInline" href="#"></a>.</div>
     </div>
   </section>
 
@@ -204,7 +200,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background
         <li><a href="https://bk-han-dev.github.io/email-manager/" target="_blank" rel="noopener">Email Manager</a>: free email and calendar bot.</li>
         <li><a href="https://bk-han-dev.github.io/income-radar-manager/" target="_blank" rel="noopener">Income Radar</a>: find local businesses that need a website (paid).</li>
         <li><a href="https://bk-han-dev.github.io/article-manager/" target="_blank" rel="noopener">Article Manager</a>: research and write articles (free to trial).</li>
-        <li><b>Realtor Bot Team</b> tiers for property agents. Your X Manager can tell you more.</li>
+        <li><b>Realtor Bot Team</b> tiers for property agents. Your Social Media Manager can tell you more.</li>
         <li>A <b>Website Design bot</b> is coming later.</li>
       </ul>
       <a class="btn primary" href="https://www.linkedin.com/groups/42843177/" target="_blank" rel="noopener">Join the Grok Bot Community on LinkedIn</a>
@@ -229,9 +225,14 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background
 (function () {
   var INBOX_ADDRESS = "aihustle-leads@mail.grokbot.com";
   var CANCEL_EMAIL  = "bk@aihustlegeneration.com";
-  var STORE = "xManagerClass.v1";
+  var STORE = "socialMediaManagerClass.v1";
+  // ===== BK: EDIT THESE =====
+  var STRIPE_PAYMENT_LINK = ""; // BK: paste your Stripe Payment Link (S$10 setup) here
+  // Set the Payment Link's after-payment redirect to: https://bk-han-dev.github.io/social-media-manager/?paid=1
+  var INSTRUCTOR_CODE = "BKCLASS"; // BK: in-class instructor unlock code (soft gate only)
+  // ==========================
 
-  var X_MANAGER_INSTRUCTIONS = `You are the student's X Manager, a free-to-trial social media bot created by BK Han (AI Hustle Generation). You help the student grow on X (Twitter) and find leads there.
+  var SMM_INSTRUCTIONS = `You are the student's Social Media Manager, a lower-tier social media bot created by BK Han (AI Hustle Generation). Pricing: S$10 one-time setup (paid at signup) plus about S$5-10/month API fee, starting when Buffer is connected. You plan, write and schedule posts for X/Twitter, Instagram and LinkedIn through the student's Buffer account.
 
 ## Style
 Plain, warm, short messages. Ask ONE question at a time and wait for the answer. Never invent stats, follower numbers or results.
@@ -245,27 +246,26 @@ Plain, warm, short messages. Ask ONE question at a time and wait for the answer.
 6. Your niche?
 7. Your area (for example Singapore)?
 8. Your tone (friendly, expert, funny, bold)?
-9. Posting schedule: once a day, twice a day, or three times a day?
-10. Your X handle?
+9. Which platforms: X/Twitter, Instagram, LinkedIn?
+10. How often: once a day, twice a day, or three times a day?
 Then repeat everything back and ask "Is this correct?"
 
+## Connecting Buffer
+Ask the student to connect Buffer in your connections and to link their X, Instagram and LinkedIn channels inside Buffer. Check which channels you can see. If Buffer isn't connected, keep helping: give each post and image ready to copy and paste.
+
 ## Your jobs
-- Topic ideas: suggest 5 topic ideas for their niche whenever asked, and one post idea each day.
-- Posts: write simple posts with a strong hook, short lines, one call to action and 1-2 hashtags, under 280 characters. Short threads (3-7 posts) on request, each post under 280 characters.
-- Image: generate one image related to each post's topic.
-- Trends: research what is being discussed in their niche on X using public posts, and summarise it with links.
-- Replies: suggest reply ideas to relevant public posts. The student decides what to post.
-- Leads: find people and businesses in their niche and area from public X posts and profiles. Score each out of 20 (fit, need, activity, contactability) and save them as a list.
+- Topic ideas: suggest 5 topic ideas for their niche whenever asked.
+- Posts: for each topic, write a simple post with hashtags for each chosen platform:
+  - X: under 280 characters, strong hook, 1-2 hashtags.
+  - Instagram: a caption with short lines, one call to action and 3-5 hashtags. Instagram needs an image.
+  - LinkedIn: slightly longer, short paragraphs, one call to action, 3-5 hashtags.
+- Image: generate one image that matches each post's topic.
+- Schedule: after the student approves, schedule the post and image in Buffer for the chosen channels and times, then confirm what was scheduled.
+- Routine: set up a routine (scheduled task) at their chosen frequency. Each time, prepare the next posts and images and ask for approval. Schedule only what they approve. They can say "pause" anytime; stop at once.
+- Leads (optional): find people and businesses in their niche and area from public posts and profiles. Score each out of 20 and save them as a list.
 
-## Posting (be honest)
-Your built-in X connection reads public X but cannot post. To post, the student needs a posting connection:
-- a scheduling tool such as Buffer connected to their X account, or
-- their own X API developer keys (advanced; X API access may be paid), or
-- copy and paste by hand.
-Never post, reply, like, follow or DM without the student's explicit yes. Follow X's automation rules: no spam, no mass replies, no mass follows.
-
-## Posting schedule
-Set up a routine (scheduled task) at the times the student chose (daily, twice or three times a day). Each time, prepare the post and its image. If a posting tool is connected and the student has given a one-time standing yes for scheduled posts, post through it and confirm. Otherwise, send the ready post and image so they can copy and paste. They can say "pause" anytime; stop at once.
+## Approval rule
+Never post or schedule anything without the student's approval of that post or that batch. Show the exact text, image and time first. Follow each platform's rules: no spam, no mass posting, no mass replies, follows or DMs.
 
 ## SETUP email
 Draft this, show it, and send only on yes (or let them send it by hand from their signup email):
@@ -276,12 +276,12 @@ License: [MLH-XXXX]
 Name: [Full Name]
 Niche: [niche]
 Area: [area]
-Channels: X
+Channels: [platforms]
 BK's reply arrives within minutes.
 
 ## LEADS email (optional)
 Subject: LEADS | [MLH-XXXX] | [niche] [area] | [count]
-CSV columns: business_name,category,area,phone,website,source,score,notes (source = X).
+CSV columns: business_name,category,area,phone,website,source,score,notes (source = the platform).
 
 ## Also mention
 Email Manager is free. Income Radar is paid (S$10 one-time setup, about S$5-10/month API, 20% success fee on the first closed deal, only after the first customer). BK also offers Realtor Bot Team tiers for property agents.
@@ -292,11 +292,11 @@ Public information only. Never promise income or followers.
 
   var PROMPTS = [
     "Give me 5 topic ideas for my niche",
-    "Give me today's post",
-    "Write a simple post with hashtags and one image",
-    "Turn this idea into a 5-post thread",
-    "What's trending in [niche]?",
-    "Set my posting schedule to twice a day",
+    "Write today's post for X, Instagram and LinkedIn with one image",
+    "Show me this week's posts to approve",
+    "Schedule the approved posts in Buffer",
+    "Set a routine to prepare posts twice a day",
+    "Pause my routine",
     "Find 10 leads in [niche] [area]"
   ];
 
@@ -330,12 +330,12 @@ Public information only. Never promise income or followers.
 
   function setupSubject() { return "SETUP | " + st.license + " | " + st.name; }
   function setupBody() {
-    return "License: " + st.license + "\nName: " + st.name + "\nNiche: [your niche, e.g. bakeries]\nArea: [your area, e.g. Tampines, Singapore]\nChannels: X";
+    return "License: " + st.license + "\nName: " + st.name + "\nNiche: [your niche, e.g. bakeries]\nArea: [your area, e.g. Tampines, Singapore]\nChannels: [X, Instagram, LinkedIn]";
   }
   function setupText() { return "To: " + INBOX_ADDRESS + "\nSubject: " + setupSubject() + "\n\n" + setupBody(); }
   function leadsSubject() { return "LEADS | " + st.license + " | [niche] [area] | [count]"; }
   function leadsBody() {
-    return "License: " + st.license + "\nName: " + st.name + "\n\nbusiness_name,category,area,phone,website,source,score,notes\n[Example Cafe],[cafe],[Tampines],[phone if public],[website],X,[15],[posted about needing a website]";
+    return "License: " + st.license + "\nName: " + st.name + "\n\nbusiness_name,category,area,phone,website,source,score,notes\n[Example Cafe],[cafe],[Tampines],[phone if public],[website],[Instagram],[15],[posted about needing a website]";
   }
   function leadsText() { return "To: " + INBOX_ADDRESS + "\nSubject: " + leadsSubject() + "\n\n" + leadsBody(); }
 
@@ -343,8 +343,10 @@ Public information only. Never promise income or followers.
     var has = !!st.license;
     $("signupCard").classList.toggle("hidden", has);
     $("licenseCard").classList.toggle("hidden", !has);
-    $("cardStep").classList.toggle("hidden", !has || !!st.cardDecided);
-    $("cardDone").classList.toggle("hidden", !has || !st.cardDecided);
+    $("cardStep").classList.toggle("hidden", !has || !!st.paid);
+    $("cardDone").classList.toggle("hidden", !has || !st.paid);
+    $("payBtn").classList.toggle("hidden", !STRIPE_PAYMENT_LINK);
+    $("payPending").classList.toggle("hidden", !!STRIPE_PAYMENT_LINK);
     if (!has) return;
     $("licShow").textContent = st.license;
     $("licWho").textContent = "Registered to: " + st.email;
@@ -352,7 +354,7 @@ Public information only. Never promise income or followers.
     document.querySelectorAll(".emailInline").forEach(function (e) { e.textContent = st.email; });
     document.querySelectorAll(".cancelInline").forEach(function (e) {
       e.textContent = CANCEL_EMAIL;
-      e.href = "mailto:" + CANCEL_EMAIL + "?subject=" + encodeURIComponent("CANCEL | X Manager | " + st.license);
+      e.href = "mailto:" + CANCEL_EMAIL + "?subject=" + encodeURIComponent("CANCEL | Social Media Manager | " + st.license);
     });
     $("setupTpl").textContent = setupText();
     $("setupMailto").href = "mailto:" + INBOX_ADDRESS + "?subject=" + encodeURIComponent(setupSubject()) + "&body=" + encodeURIComponent(setupBody());
@@ -374,9 +376,13 @@ Public information only. Never promise income or followers.
     document.body.removeChild(ta);
   }
 
-  $("cancelMail").href = "mailto:" + CANCEL_EMAIL + "?subject=" + encodeURIComponent("CANCEL | X Manager card");
+  $("cancelMail").href = "mailto:" + CANCEL_EMAIL + "?subject=" + encodeURIComponent("CANCEL | Social Media Manager card");
   $("cancelMail").textContent = CANCEL_EMAIL;
-  $("instrText").value = X_MANAGER_INSTRUCTIONS;
+  if (/[?&]paid=1(&|$)/.test(location.search)) {
+    st.paid = true; save(st);
+    try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) {}
+  }
+  $("instrText").value = SMM_INSTRUCTIONS;
 
   PROMPTS.forEach(function (p) {
     var row = document.createElement("div"); row.className = "prompt";
@@ -396,8 +402,17 @@ Public information only. Never promise income or followers.
     save(st); render();
   });
 
-  $("skipCardBtn").addEventListener("click", function () {
-    st.cardDecided = true; save(st); render();
+  $("payBtn").addEventListener("click", function () {
+    if (!STRIPE_PAYMENT_LINK) return;
+    var sep = STRIPE_PAYMENT_LINK.indexOf("?") >= 0 ? "&" : "?";
+    location.href = STRIPE_PAYMENT_LINK + sep + "prefilled_email=" + encodeURIComponent(st.email || "") + "&client_reference_id=" + encodeURIComponent(st.license || "");
+  });
+  $("instructorUnlock").addEventListener("click", function (e) {
+    e.preventDefault();
+    var c = prompt("Instructor code:");
+    if (c === null) return;
+    if (c.trim().toUpperCase() === INSTRUCTOR_CODE) { st.paid = true; st.unlockedBy = "instructor"; save(st); render(); }
+    else alert("That code isn't right.");
   });
 
   document.addEventListener("click", function (e) {
@@ -407,10 +422,11 @@ Public information only. Never promise income or followers.
     if (c === "leads") copy(leadsText(), e.target);
   });
 
-  $("copyInstr").addEventListener("click", function () { copy(X_MANAGER_INSTRUCTIONS, this); });
+  $("copyInstr").addEventListener("click", function () { copy(SMM_INSTRUCTIONS, this); });
 
   $("nextBtn").addEventListener("click", function () {
     if (st.screen === 1 && !st.license) { $("navErr").textContent = "Enter your name and email first."; return; }
+    if (!st.paid) { if (st.screen !== 1) show(1); $("navErr").textContent = STRIPE_PAYMENT_LINK ? "Pay the S$10 setup first." : "Payment opens soon — ask Coach BK."; return; }
     show(st.screen + 1);
   });
   $("backBtn").addEventListener("click", function () { show(st.screen - 1); });
@@ -424,7 +440,7 @@ Public information only. Never promise income or followers.
   });
 
   render();
-  show(st.screen && st.license ? st.screen : 1);
+  show(st.screen && st.license && st.paid ? st.screen : 1);
 })();
 </script>
 </body>
